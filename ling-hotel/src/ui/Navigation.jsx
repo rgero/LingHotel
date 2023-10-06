@@ -6,6 +6,7 @@ import {
   HiOutlineUsers,
 } from "react-icons/hi2";
 
+import {GiWoodStick} from 'react-icons/gi';
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
@@ -68,6 +69,12 @@ const Navigation = () => {
                     <StyledNavLink to="/bookings">
                     <HiOutlineCalendarDays />
                     <span>Bookings</span>
+                    </StyledNavLink>
+                </li>
+                <li>
+                    <StyledNavLink to="/stick">
+                    <GiWoodStick />
+                    <span>Stick</span>
                     </StyledNavLink>
                 </li>
                 <li>

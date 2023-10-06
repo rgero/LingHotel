@@ -10,6 +10,7 @@ import GlobalStyles from "./styles/GlobalStyles"
 import Login from "./pages/Login"
 import PageNotFound from "./pages/PageNotFound"
 import Settings from "./pages/Settings"
+import Stick from './pages/Stick'
 import Users from "./pages/Users"
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
             <Route index element={<Navigate replace to='dashboard'/>} />
             <Route path='dashboard' element={<Dashboard/>} />
             <Route path='bookings' element={<Bookings/>} />
+            <Route path='stick' element={<Stick/>} />
             <Route path='cabins' element={<Cabins/>} />
             <Route path='users' element={<Users/>} />
             <Route path='settings' element={<Settings/>} />
