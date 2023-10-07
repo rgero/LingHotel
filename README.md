@@ -3,3 +3,10 @@ This project is the "final" project of the modern React course that I am taking 
 
 ## Libraries used
 React Router, Styled Components, React Query, React Hook Form
+
+## Tables in Database
+There's four tables
+    Cabins
+    Guests
+    Settings
+    Bookings
