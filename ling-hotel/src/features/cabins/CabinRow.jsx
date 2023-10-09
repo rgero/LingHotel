@@ -2,6 +2,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+
+import { HiTrash } from "react-icons/hi2";
+import { deleteCabin } from '../../services/apiCabins';
 import { formatCurrency } from '../../utils/helpers';
 import styled from 'styled-components';
 
@@ -56,6 +60,15 @@ const CabinRow = ({cabin}) => {
         description,
     } = cabin;
 
+    const queryClient = useQueryClient();
+    const {isLoading: isDeleting, mutate} = useMutation({
+        mutationFn: (id) => deleteCabin(id),
+        onSuccess: () => {
+            queryClient.invalidateQueries({queryKey: ["cabins"]})
+        },
+        onError: (err) => alert(err.message)
+    })
+
     return (
         <>
             <TableRow role="row">
@@ -68,17 +81,11 @@ const CabinRow = ({cabin}) => {
                 ) : (
                     <span>&mdash;</span>
                 )}
-                {/* <div>
-                    <button disabled={isCreating} onClick={handleDuplicate}>
-                        <HiSquare2Stack />
-                    </button>
-                    <button onClick={() => setShowForm((show) => !show)}>
-                        <HiPencil />
-                    </button>
-                    <button onClick={() => deleteCabin(cabinId)} disabled={isDeleting}>
+                <div>
+                    <button onClick={() => mutate(cabinId)} disabled={isDeleting}>
                         <HiTrash />
                     </button>
-                </div> */}
+                </div>
             </TableRow>
         </>
       );
