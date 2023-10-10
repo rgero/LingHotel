@@ -8,6 +8,7 @@ import { HiTrash } from "react-icons/hi2";
 import { deleteCabin } from '../../services/apiCabins';
 import { formatCurrency } from '../../utils/helpers';
 import styled from 'styled-components';
+import toast from 'react-hot-toast';
 
 const TableRow = styled.div`
   display: grid;
@@ -65,8 +66,9 @@ const CabinRow = ({cabin}) => {
         mutationFn: (id) => deleteCabin(id),
         onSuccess: () => {
             queryClient.invalidateQueries({queryKey: ["cabins"]})
+            toast.success("Cabin Deleted");
         },
-        onError: (err) => alert(err.message)
+        onError: (err) => toast.error(err.message)
     })
 
     return (
