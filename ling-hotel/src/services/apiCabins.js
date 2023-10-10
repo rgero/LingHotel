@@ -12,6 +12,22 @@ export const getCabins = async () => {
     return data;
 }
 
+export const addCabin = async (newCabin) => {
+    
+    const { data, error } = await supabase
+        .from('cabins')
+        .insert([newCabin])
+        .select()
+
+    if (error)
+    {
+        console.error(error);
+        throw new Error("Cabins cannot be added");
+    }
+
+    return data;
+}
+
 export const deleteCabin = async (id) => 
 {
     const { error } = await supabase
