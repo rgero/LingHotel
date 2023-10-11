@@ -1,11 +1,11 @@
 id,created_at,name,maxCapacity,regularPrice,discount,description,image
-1,2023-10-08 21:23:47.718543+00,Lake 1,4,200,150,The one next to the lake,https://jrgaasvwejqdzjaotxzc.supabase.co/storage/v1/object/public/cabins-images/cabin-001.jpg?t=2023-10-08T21%3A55%3A54.726Z
-2,2023-10-08 21:23:47.718543+00,Lake 2,4,200,150,The one next to the lake,https://jrgaasvwejqdzjaotxzc.supabase.co/storage/v1/object/public/cabins-images/cabin-001.jpg?t=2023-10-08T21%3A55%3A54.726Z
-3,2023-10-08 21:23:47.718543+00,Lake 3,4,200,150,The one next to the lake,https://jrgaasvwejqdzjaotxzc.supabase.co/storage/v1/object/public/cabins-images/cabin-001.jpg?t=2023-10-08T21%3A55%3A54.726Z
-4,2023-10-08 21:23:47.718543+00,Lake 4,4,200,150,The one next to the lake,https://jrgaasvwejqdzjaotxzc.supabase.co/storage/v1/object/public/cabins-images/cabin-001.jpg?t=2023-10-08T21%3A55%3A54.726Z
-5,2023-10-08 21:23:47.718543+00,Lake 5,4,200,150,The one next to the lake,https://jrgaasvwejqdzjaotxzc.supabase.co/storage/v1/object/public/cabins-images/cabin-001.jpg?t=2023-10-08T21%3A55%3A54.726Z
-6,2023-10-08 21:23:47.718543+00,Lake 6,4,200,150,The one next to the lake,https://jrgaasvwejqdzjaotxzc.supabase.co/storage/v1/object/public/cabins-images/cabin-001.jpg?t=2023-10-08T21%3A55%3A54.726Z
-7,2023-10-08 21:23:47.718543+00,Lake 7,4,200,150,The one next to the lake,https://jrgaasvwejqdzjaotxzc.supabase.co/storage/v1/object/public/cabins-images/cabin-001.jpg?t=2023-10-08T21%3A55%3A54.726Z
-8,2023-10-08 21:23:47.718543+00,Lake 8,4,200,150,The one next to the lake,https://jrgaasvwejqdzjaotxzc.supabase.co/storage/v1/object/public/cabins-images/cabin-001.jpg?t=2023-10-08T21%3A55%3A54.726Z
-9,2023-10-08 21:23:47.718543+00,Lake 9,4,200,150,The one next to the lake,https://jrgaasvwejqdzjaotxzc.supabase.co/storage/v1/object/public/cabins-images/cabin-001.jpg?t=2023-10-08T21%3A55%3A54.726Z
-10,2023-10-08 21:23:47.718543+00,Lake 10,4,200,150,The one next to the lake,https://jrgaasvwejqdzjaotxzc.supabase.co/storage/v1/object/public/cabins-images/cabin-001.jpg?t=2023-10-08T21%3A55%3A54.726Z
+1,2023-10-08 21:23:47.718543+00,Lake 1,4,200,150,The one next to the lake,https://jrgaasvwejqdzjaotxzc.supabase.co/storage/v1/object/sign/cabin-images/cabin-001.jpg
+2,2023-10-08 21:23:47.718543+00,Lake 2,4,200,150,The one next to the lake,https://jrgaasvwejqdzjaotxzc.supabase.co/storage/v1/object/sign/cabin-images/cabin-001.jpg
+3,2023-10-08 21:23:47.718543+00,Lake 3,4,200,150,The one next to the lake,https://jrgaasvwejqdzjaotxzc.supabase.co/storage/v1/object/sign/cabin-images/cabin-001.jpg
+4,2023-10-08 21:23:47.718543+00,Lake 4,4,200,150,The one next to the lake,https://jrgaasvwejqdzjaotxzc.supabase.co/storage/v1/object/sign/cabin-images/cabin-001.jpg
+5,2023-10-08 21:23:47.718543+00,Lake 5,4,200,150,The one next to the lake,https://jrgaasvwejqdzjaotxzc.supabase.co/storage/v1/object/sign/cabin-images/cabin-001.jpg
+6,2023-10-08 21:23:47.718543+00,Lake 6,4,200,150,The one next to the lake,https://jrgaasvwejqdzjaotxzc.supabase.co/storage/v1/object/sign/cabin-images/cabin-001.jpg
+7,2023-10-08 21:23:47.718543+00,Lake 7,4,200,150,The one next to the lake,https://jrgaasvwejqdzjaotxzc.supabase.co/storage/v1/object/sign/cabin-images/cabin-001.jpg
+8,2023-10-08 21:23:47.718543+00,Lake 8,4,200,150,The one next to the lake,https://jrgaasvwejqdzjaotxzc.supabase.co/storage/v1/object/sign/cabin-images/cabin-001.jpg
+9,2023-10-08 21:23:47.718543+00,Lake 9,4,200,150,The one next to the lake,https://jrgaasvwejqdzjaotxzc.supabase.co/storage/v1/object/sign/cabin-images/cabin-001.jpg
+10,2023-10-08 21:23:47.718543+00,Lake 10,4,200,150,The one next to the lake,https://jrgaasvwejqdzjaotxzc.supabase.co/storage/v1/object/sign/cabin-images/cabin-001.jpg
