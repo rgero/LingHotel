@@ -4,11 +4,13 @@
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
+import CreateCabinForm from './CreateCabinForm'
 import { HiTrash } from "react-icons/hi2";
 import { deleteCabin } from '../../services/apiCabins';
 import { formatCurrency } from '../../utils/helpers';
 import styled from 'styled-components';
 import toast from 'react-hot-toast';
+import { useState } from 'react';
 
 const TableRow = styled.div`
   display: grid;
@@ -51,6 +53,7 @@ const Discount = styled.div`
 `;
 
 const CabinRow = ({cabin}) => {
+    const [showForm, setShowForm] = useState(false);
     const {
         id: cabinId,
         name,
@@ -84,11 +87,15 @@ const CabinRow = ({cabin}) => {
                     <span>&mdash;</span>
                 )}
                 <div>
+                    <button onClick={() => setShowForm((show)=> !show)}>
+                        Edit
+                    </button>
                     <button onClick={() => mutate(cabinId)} disabled={isDeleting}>
                         <HiTrash />
                     </button>
                 </div>
             </TableRow>
+            {showForm && <CreateCabinForm cabinToEdit={cabin} />}
         </>
       );
 }

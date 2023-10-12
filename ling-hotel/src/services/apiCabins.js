@@ -12,14 +12,30 @@ export const getCabins = async () => {
     return data;
 }
 
-export const addCabin = async (newCabin) => {
-    const imageName = `${Math.random()}-${newCabin.image.name}`.replace("/","");
-    const imagePath = `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`
-    
-    const { data, error } = await supabase
-        .from('cabins')
-        .insert([{...newCabin, image: imagePath}])
-        .select()
+export const addOrEditCabin = async (newCabin, id) => {
+    let imagePath, imageName;
+    let needToUpload = false;
+    if (newCabin.image)
+    {
+        if (typeof newCabin.image === 'string')
+        {
+            imagePath = newCabin.image;
+        } else {
+            needToUpload = true;
+            imageName = `${Math.random()}-${newCabin.image.name}`.replace("/","");
+            imagePath = `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`
+        }
+    }
+
+    let query = supabase.from('cabins');
+    if (!id)
+    {
+        query = query.insert([{...newCabin, image: imagePath}])
+    } else {
+        query = query.update({...newCabin, image: imagePath}).eq('id', id).select()
+    }
+
+    const { data, error } = await query.select().single();
 
     if (error)
     {
@@ -28,21 +44,24 @@ export const addCabin = async (newCabin) => {
     }
 
     // Upload the data
-    const {error: imageError} = await supabase
+    if (needToUpload)
+    {
+        const {error: imageError} = await supabase
         .storage
         .from('cabin-images')
         .upload(imageName, newCabin.image )
 
-    // Delete cabin if error exists
-    if (imageError)
-    {
-        await supabase
-            .from('cabins')
-            .delete()
-            .eq('id', data.id)
-        throw new Error("Cabin Image could not be uploaded");
+        // Delete cabin if error exists
+        if (imageError)
+        {
+            await supabase
+                .from('cabins')
+                .delete()
+                .eq('id', data.id)
+            throw new Error("Cabin Image could not be uploaded");
+        }
     }
-
+    
     return data;
 }
 
