@@ -2,14 +2,11 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-
 import CreateCabinForm from './CreateCabinForm'
 import { HiTrash } from "react-icons/hi2";
-import { deleteCabin } from '../../services/apiCabins';
 import { formatCurrency } from '../../utils/helpers';
 import styled from 'styled-components';
-import toast from 'react-hot-toast';
+import { useDeleteCabin } from './hooks/useDeleteCabin';
 import { useState } from 'react';
 
 const TableRow = styled.div`
@@ -64,15 +61,7 @@ const CabinRow = ({cabin}) => {
         description,
     } = cabin;
 
-    const queryClient = useQueryClient();
-    const {isLoading: isDeleting, mutate} = useMutation({
-        mutationFn: (id) => deleteCabin(id),
-        onSuccess: () => {
-            queryClient.invalidateQueries({queryKey: ["cabins"]})
-            toast.success("Cabin Deleted");
-        },
-        onError: (err) => toast.error(err.message)
-    })
+    const {isDeleting, deleteCabin} = useDeleteCabin();
 
     return (
         <>
@@ -90,7 +79,7 @@ const CabinRow = ({cabin}) => {
                     <button onClick={() => setShowForm((show)=> !show)}>
                         Edit
                     </button>
-                    <button onClick={() => mutate(cabinId)} disabled={isDeleting}>
+                    <button onClick={() => deleteCabin(cabinId)} disabled={isDeleting}>
                         <HiTrash />
                     </button>
                 </div>
