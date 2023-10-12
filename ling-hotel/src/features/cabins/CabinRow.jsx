@@ -2,10 +2,12 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 
+import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
+
 import CreateCabinForm from './CreateCabinForm'
-import { HiTrash } from "react-icons/hi2";
 import { formatCurrency } from '../../utils/helpers';
 import styled from 'styled-components';
+import { useAddCabin } from "./hooks/useAddCabin";
 import { useDeleteCabin } from './hooks/useDeleteCabin';
 import { useState } from 'react';
 
@@ -62,6 +64,18 @@ const CabinRow = ({cabin}) => {
     } = cabin;
 
     const {isDeleting, deleteCabin} = useDeleteCabin();
+    const {isAdding, addCabin} = useAddCabin();
+
+    const handleDuplicate = () => {
+      addCabin({
+        name: `Copy of ${name}`,
+        maxCapacity,
+        regularPrice,
+        discount,
+        image,
+        description
+      })
+    }
 
     return (
         <>
@@ -76,8 +90,11 @@ const CabinRow = ({cabin}) => {
                     <span>&mdash;</span>
                 )}
                 <div>
+                    <button onClick={handleDuplicate} disabled={isAdding}>
+                      <HiSquare2Stack/>
+                    </button>
                     <button onClick={() => setShowForm((show)=> !show)}>
-                        Edit
+                        <HiPencil/>
                     </button>
                     <button onClick={() => deleteCabin(cabinId)} disabled={isDeleting}>
                         <HiTrash />
