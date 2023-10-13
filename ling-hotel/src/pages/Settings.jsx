@@ -1,7 +1,10 @@
+import UpdateSettingsForm from "../features/settings/UpdateSettingsForm"
+
 const Settings = () => {
     return (
         <div>
-            Settings
+            <h1>Settings</h1>
+            <UpdateSettingsForm/>
         </div>
     )
 }
