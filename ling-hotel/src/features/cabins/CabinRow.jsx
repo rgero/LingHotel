@@ -5,11 +5,11 @@
 import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
 
 import CreateCabinForm from './CreateCabinForm'
+import Modal from "../../ui/Modal";
 import { formatCurrency } from '../../utils/helpers';
 import styled from 'styled-components';
 import { useAddCabin } from "./hooks/useAddCabin";
 import { useDeleteCabin } from './hooks/useDeleteCabin';
-import { useState } from 'react';
 
 const TableRow = styled.div`
   display: grid;
@@ -52,7 +52,6 @@ const Discount = styled.div`
 `;
 
 const CabinRow = ({cabin}) => {
-    const [showForm, setShowForm] = useState(false);
     const {
         id: cabinId,
         name,
@@ -93,15 +92,22 @@ const CabinRow = ({cabin}) => {
                     <button onClick={handleDuplicate} disabled={isAdding}>
                       <HiSquare2Stack/>
                     </button>
-                    <button onClick={() => setShowForm((show)=> !show)}>
-                        <HiPencil/>
-                    </button>
+                    <Modal>
+                      <Modal.Open opens="edit">
+                        <button>
+                          <HiPencil />
+                        </button>
+                      </Modal.Open>
+                      <Modal.Window name="edit">
+                        <CreateCabinForm cabinToEdit={cabin} />
+                      </Modal.Window>
+                    </Modal>
+
                     <button onClick={() => deleteCabin(cabinId)} disabled={isDeleting}>
                         <HiTrash />
                     </button>
                 </div>
             </TableRow>
-            {showForm && <CreateCabinForm cabinToEdit={cabin} />}
         </>
       );
 }

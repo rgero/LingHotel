@@ -10,7 +10,7 @@ import { useAddCabin } from "./hooks/useAddCabin";
 import { useEditCabin } from "./hooks/useEditCabin";
 import {useForm} from "react-hook-form";
 
-const CreateCabinForm = ({cabinToEdit = {}}) => {
+const CreateCabinForm = ({cabinToEdit = {}, onCloseModal}) => {
 
     const { id: editId, ...editValues} = cabinToEdit;
     const isEditSession = Boolean(editId);
@@ -27,10 +27,18 @@ const CreateCabinForm = ({cabinToEdit = {}}) => {
         const image = typeof data.image === "string" ? data.image : data.image[0]
         if (isEditSession)
         {
-            editCabin({newCabinData: {...data, image: image}, id: editId}, {onSuccess: () => reset()});
+            editCabin({newCabinData: {...data, image: image}, id: editId},
+                      {onSuccess: () => {
+                        reset();
+                        onCloseModal?.();
+                      }});
         } else 
         {
-            addCabin({...data, image: image}, {onSuccess: () => reset()});
+            addCabin({...data, image: image}, 
+                    {onSuccess: () => {
+                        reset();
+                        onCloseModal?.();
+                    }});
         }
     }
 
@@ -39,7 +47,7 @@ const CreateCabinForm = ({cabinToEdit = {}}) => {
     }
     
     return (
-        <Form onSubmit={handleSubmit(onFormSubmit, onError)}>
+        <Form onSubmit={handleSubmit(onFormSubmit, onError)} type={onCloseModal ? 'modal' : 'regular'}>
             <FormRow label="Cabin Name" errors={errors?.name?.message}>
                 <Input 
                     type="text"
@@ -121,7 +129,11 @@ const CreateCabinForm = ({cabinToEdit = {}}) => {
 
             <FormRow>
                 {/* type is an HTML attribute! */}
-                <Button variation="secondary" type="reset">
+                <Button 
+                    variation="secondary" 
+                    type="reset" 
+                    onClick={()=> onCloseModal?.()}
+                >
                     Cancel
                 </Button>
                 <Button disabled={isCreating || isEditing}>Add cabin</Button>
