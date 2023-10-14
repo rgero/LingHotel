@@ -4,6 +4,8 @@
 
 import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
 
+import Button from "../../ui/Button";
+import ConfirmDelete from "../../ui/ConfirmDelete";
 import CreateCabinForm from './CreateCabinForm'
 import Modal from "../../ui/Modal";
 import { formatCurrency } from '../../utils/helpers';
@@ -101,11 +103,14 @@ const CabinRow = ({cabin}) => {
                       <Modal.Window name="edit">
                         <CreateCabinForm cabinToEdit={cabin} />
                       </Modal.Window>
-                    </Modal>
 
-                    <button onClick={() => deleteCabin(cabinId)} disabled={isDeleting}>
-                        <HiTrash />
-                    </button>
+                      <Modal.Open opens="delete">
+                        <button><HiTrash /></button>
+                      </Modal.Open>
+                      <Modal.Window name="delete">
+                        <ConfirmDelete resourceName="cabins" disabled={isDeleting} onConfirm={()=> deleteCabin(cabinId)} />
+                      </Modal.Window>
+                    </Modal>
                 </div>
             </TableRow>
         </>
