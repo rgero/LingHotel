@@ -14,8 +14,11 @@ export const useBookings = () => {
   const [field, direction] = sortByRaw.split('-');
   const sortBy = {field, direction}
 
+  // PAGES
+  const page = !searchParams.get('page') ? 1 : Number(searchParams.get('page'));
 
   // This is cool, the filter input makes it a dependency like useEffect.
-  const {isLoading, data: bookings, error} = useQuery({queryKey: ["bookings", filter, sortBy], queryFn: () => getBookings({filter, sortBy})});
-  return { isLoading, error, bookings };
+  const {isLoading, data: {data: bookings, count} = {}, error} = useQuery({queryKey: ["bookings", filter, sortBy, page], queryFn: () => getBookings({filter, sortBy, page})});
+
+  return { isLoading, error, bookings, count };
 }

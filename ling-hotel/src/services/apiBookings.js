@@ -1,9 +1,11 @@
+import { ENTRIES_PER_PAGE } from "../utils/constants";
 import supabase from "./supabase";
 
-export const getBookings = async ({filter, sortBy}) => {
+export const getBookings = async ({filter, sortBy, page}) => {
+
   let query = supabase
     .from("bookings")
-    .select("*, cabins(name), guests(fullName, email)");
+    .select("*, cabins(name), guests(fullName, email)", {count: "exact"});
 
   if (filter) 
   {
@@ -15,13 +17,19 @@ export const getBookings = async ({filter, sortBy}) => {
     query = query.order(sortBy.field, {ascending: sortBy.direction === "asc"})
   }
 
-  const {data, error} = await query;
+  if (page){
+    const from = ENTRIES_PER_PAGE * (page-1);
+    const to = from + ENTRIES_PER_PAGE - 1;
+    query = query.range(from, to);
+  }
+
+  const {data, error, count} = await query;
   if (error) {
     console.error(error);
     throw new Error("Bookings not found");
   }
 
-  return data;
+  return {data, count};
 }
 
 export const getBooking = async (id) => {
