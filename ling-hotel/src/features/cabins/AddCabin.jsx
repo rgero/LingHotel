@@ -1,4 +1,4 @@
-import Button from "../../ui/Button";
+import Button from "../../ui/styles/Button";
 import CreateCabinForm from "./CreateCabinForm";
 import Modal from '../../ui/Modal';
 

@@ -4,7 +4,7 @@
 
 import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
 
-import Button from "../../ui/Button";
+import Button from "../../ui/styles/Button";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import CreateCabinForm from './CreateCabinForm'
 import Menus from "../../ui/Menus";

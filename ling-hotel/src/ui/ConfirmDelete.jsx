@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-import Button from "./Button";
+import Button from "./styles/Button";
 import Heading from "./Heading";
 import styled from "styled-components";
 
