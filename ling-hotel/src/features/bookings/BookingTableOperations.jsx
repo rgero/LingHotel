@@ -3,6 +3,7 @@ import SortBy from "../../ui/SortBy";
 import TableOperations from "../../ui/TableOperations";
 
 const BookingTableOperations = () => {
+  const searchParamsToReset = [{ name: "page", value: 1 }];
   return (
     <TableOperations>
       <Filter
@@ -13,6 +14,7 @@ const BookingTableOperations = () => {
           { value: "checked-in", label: "Checked in" },
           { value: "unconfirmed", label: "Unconfirmed" },
         ]}
+        searchParamsToReset={searchParamsToReset}
       />
 
       <SortBy
