@@ -1,7 +1,7 @@
+import { HiArrowDownCircle, HiEye } from "react-icons/hi2";
 /* eslint-disable react/prop-types */
 import { format, isToday } from "date-fns";
 
-import { HiEye } from "react-icons/hi2";
 import Menus from "../../ui/Menus";
 import Table from "../../ui/Table";
 import Tag from "../../ui/Tag";
@@ -87,12 +87,19 @@ const BookingRow = ({
       <Amount>{formatCurrency(totalPrice)}</Amount>
 
       <Menus.Menu>
-                <Menus.Toggle id={bookingId} />
-                <Menus.List id={bookingId}>
-                  <Menus.Button icon={<HiEye />} onClick={() => navigate(`/bookings/${bookingId}`)}>
-                    See Details
-                  </Menus.Button>
-                </Menus.List>
+        <Menus.Toggle id={bookingId} />
+        <Menus.List id={bookingId}>
+          <Menus.Button icon={<HiEye />} onClick={() => navigate(`/bookings/${bookingId}`)}>
+            See Details
+          </Menus.Button>
+          
+          { status === 'unconfirmed' &&
+            <Menus.Button icon={<HiArrowDownCircle/>} onClick={()=> navigate(`/checkin/${bookingId}`)}>
+              Check in
+            </Menus.Button>
+          } 
+
+        </Menus.List>
       </Menus.Menu>
     </Table.Row>
   );

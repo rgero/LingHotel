@@ -9,6 +9,7 @@ import Tag from "../../ui/Tag";
 import styled from "styled-components";
 import { useBooking } from "./hooks/useBooking";
 import { useMoveBack } from "../../hooks/useMoveBack";
+import { useNavigate } from "react-router-dom";
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -19,6 +20,7 @@ const HeadingGroup = styled.div`
 const BookingDetail = () => {
   const {booking, isLoading} = useBooking();
   const moveBack = useMoveBack();
+  const navigate = useNavigate();
 
   if (isLoading) return <Spinner/>;
   const status = booking.status;
@@ -43,6 +45,11 @@ const BookingDetail = () => {
       <BookingPresentation booking={booking} />
 
       <ButtonGroup>
+        { status === 'unconfirmed' &&
+          <Button variation="success" onClick={()=> navigate(`/checkin/${booking.id}`)}>
+            Check In
+          </Button>
+        }
         <Button variation="secondary" onClick={moveBack}>
           Back
         </Button>
