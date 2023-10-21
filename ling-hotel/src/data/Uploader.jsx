@@ -1,19 +1,12 @@
 import { isFuture, isPast, isToday } from "date-fns";
 
-import Button from "../ui/styles/Button";
+import Button from "../styles/Button";
 import { bookings } from "./data-bookings";
 import { cabins } from "./data-cabins";
 import { guests } from "./data-guests";
 import { subtractDates } from "../utils/helpers";
 import supabase from "../services/supabase";
 import { useState } from "react";
-
-// const originalSettings = {
-//   minBookingLength: 3,
-//   maxBookingLength: 30,
-//   maxGuestsPerBooking: 10,
-//   breakfastPrice: 15,
-// };
 
 async function deleteGuests() {
   const { error } = await supabase.from("guests").delete().gt("id", 0);

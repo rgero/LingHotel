@@ -10,7 +10,7 @@ import { format, isToday } from "date-fns";
 import { formatCurrency, formatDistanceFromNow } from "../../utils/helpers";
 
 import DataItem from "../../ui/DataItem";
-import { Flag } from "../../ui/styles/Flag";
+import { Flag } from "../../styles/Flag";
 import styled from "styled-components";
 
 const StyledBooking = styled.section`

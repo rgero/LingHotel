@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 
-import Button from "../../ui/styles/Button";
-import FileInput from "../../ui/styles/FileInput";
+import Button from "../../styles/Button";
+import FileInput from "../../styles/FileInput";
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
