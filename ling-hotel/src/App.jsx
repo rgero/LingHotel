@@ -9,6 +9,7 @@ import Cabins from "./pages/Cabins"
 import Checkin from "./pages/Checkin";
 import Dashboard from "./pages/Dashboard"
 import GlobalStyles from "./styles/GlobalStyles"
+import Guests from "./pages/Guests";
 import Login from "./pages/Login"
 import PageNotFound from "./pages/PageNotFound"
 import {ReactQueryDevtools} from '@tanstack/react-query-devtools';
@@ -40,6 +41,7 @@ const App = () => {
             <Route path='checkin/:bookingId' element={<Checkin/>} />
             <Route path='stick' element={<Stick/>} />
             <Route path='cabins' element={<Cabins/>} />
+            <Route path='guests' element={<Guests/>} />
             <Route path='users' element={<Users/>} />
             <Route path='settings' element={<Settings/>} />
             <Route path='account' element={<Account/>} />

@@ -78,6 +78,12 @@ const Navigation = () => {
                     </StyledNavLink>
                 </li>
                 <li>
+                    <StyledNavLink to="/guests">
+                    <GiWoodStick />
+                    <span>Guests</span>
+                    </StyledNavLink>
+                </li>
+                <li>
                     <StyledNavLink to="/cabins">
                     <HiOutlineHomeModern />
                     <span>Cabins</span>
