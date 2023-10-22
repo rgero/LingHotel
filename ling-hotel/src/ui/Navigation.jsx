@@ -6,6 +6,7 @@ import {
   HiOutlineUsers,
 } from "react-icons/hi2";
 
+import { FaPerson } from "react-icons/fa6"
 import {GiWoodStick} from 'react-icons/gi';
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
@@ -79,7 +80,7 @@ const Navigation = () => {
                 </li>
                 <li>
                     <StyledNavLink to="/guests">
-                    <GiWoodStick />
+                    <FaPerson />
                     <span>Guests</span>
                     </StyledNavLink>
                 </li>

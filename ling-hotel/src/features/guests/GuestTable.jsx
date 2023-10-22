@@ -27,7 +27,7 @@ const GuestTable = () => {
         <Table.Body
           data={guests}
           render={(guest) => (
-            <GuestRow key={guest.nationalID} guest={guest} />
+            <GuestRow key={guest.id} guest={guest} />
           )}
         />
 

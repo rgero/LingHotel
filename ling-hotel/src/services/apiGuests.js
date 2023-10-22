@@ -31,3 +31,17 @@ export const getGuests = async ({filter, sortBy, page}) => {
 
   return {data, count};
 }
+
+export const deleteGuest = async (id) => 
+{
+    const { error } = await supabase
+        .from('guests')
+        .delete()
+        .eq('id', id)
+
+    if (error)
+    {
+        console.error(error);
+        throw new Error("Guest cannot be deleted");
+    }
+}

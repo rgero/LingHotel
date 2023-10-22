@@ -12,7 +12,6 @@ export const useGuests = () => {
   // PAGES
   const page = !searchParams.get('page') ? 1 : Number(searchParams.get('page'));
 
-  // This is cool, the filter input makes it a dependency like useEffect.
   const {isLoading, data: {data: guests, count} = {}, error} = useQuery({queryKey: ["guests", page], queryFn: () => getGuests({page})});
 
   // Pre-fetch some data
