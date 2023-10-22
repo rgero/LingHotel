@@ -8,6 +8,7 @@ import Spinner from "../../ui/Spinner";
 import Tag from "../../ui/Tag";
 import styled from "styled-components";
 import { useBooking } from "./hooks/useBooking";
+import { useCheckout } from "../operations/hooks/useCheckout";
 import { useMoveBack } from "../../hooks/useMoveBack";
 import { useNavigate } from "react-router-dom";
 
@@ -19,6 +20,7 @@ const HeadingGroup = styled.div`
 
 const BookingDetail = () => {
   const {booking, isLoading} = useBooking();
+  const {checkOut, isCheckingOut} = useCheckout();
   const moveBack = useMoveBack();
   const navigate = useNavigate();
 
@@ -50,6 +52,12 @@ const BookingDetail = () => {
             Check In
           </Button>
         }
+        { status === 'checked-in' &&
+          <Button variation="success" disabled={isCheckingOut} onClick={()=> checkOut(id)}>
+            Check out
+            </Button>
+        }
+
         <Button variation="secondary" onClick={moveBack}>
           Back
         </Button>

@@ -1,4 +1,4 @@
-import { HiArrowDownCircle, HiEye } from "react-icons/hi2";
+import { HiArrowDownCircle, HiArrowUpCircle, HiEye } from "react-icons/hi2";
 /* eslint-disable react/prop-types */
 import { format, isToday } from "date-fns";
 
@@ -8,6 +8,7 @@ import Tag from "../../ui/Tag";
 import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
 import styled from "styled-components";
+import { useCheckout } from "../operations/hooks/useCheckout";
 import { useNavigate } from "react-router-dom";
 
 const Cabin = styled.div`
@@ -59,6 +60,7 @@ const BookingRow = ({
   };
 
   const navigate = useNavigate();
+  const {checkOut, isCheckingOut} = useCheckout();
 
   return (
     <Table.Row>
@@ -98,6 +100,12 @@ const BookingRow = ({
               Check in
             </Menus.Button>
           } 
+
+          { status === 'checked-in' &&
+            <Menus.Button icon={<HiArrowUpCircle/>} disabled={isCheckingOut} onClick={()=> checkOut(bookingId)}>
+              Check out
+            </Menus.Button>
+          }
 
         </Menus.List>
       </Menus.Menu>

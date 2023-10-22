@@ -18,6 +18,7 @@ const UpdateSettingsForm = () => {
   }
 
   if (isLoading) return (<Spinner/>)
+  
   return (
     <Form>
       <FormRow label='Minimum nights/booking'>
