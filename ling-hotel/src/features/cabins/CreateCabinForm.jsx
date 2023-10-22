@@ -2,10 +2,10 @@
 
 import Button from "../../styles/Button";
 import FileInput from "../../styles/FileInput";
-import Form from "../../ui/Form";
-import FormRow from "../../ui/FormRow";
-import Input from "../../ui/Input";
-import TextArea from "../../ui/TextArea";
+import Form from "../../ui/forms/Form";
+import FormRow from "../../ui/forms/FormRow";
+import Input from "../../styles/Input";
+import TextArea from "../../ui/forms/TextArea";
 import { useAddCabin } from "./hooks/useAddCabin";
 import { useEditCabin } from "./hooks/useEditCabin";
 import {useForm} from "react-hook-form";

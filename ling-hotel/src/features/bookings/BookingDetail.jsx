@@ -6,7 +6,7 @@ import ConfirmDelete from "../../ui/ConfirmDelete";
 import Heading from "../../ui/Heading";
 import Modal from "../../ui/Modal";
 import PageNotFound from "../../pages/PageNotFound";
-import Row from "../../ui/Row";
+import Row from "../../styles/Row";
 import Spinner from "../../ui/Spinner";
 import Tag from "../../ui/Tag";
 import styled from "styled-components";
