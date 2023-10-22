@@ -48,7 +48,6 @@ export const getBooking = async (id) => {
 }
 
 export const updateBooking = async (id, updateObject) => {
-  console.log(updateObject);
   const { data, error } = await supabase
     .from("bookings")
     .update(updateObject)

@@ -1,11 +1,6 @@
 /* eslint-disable react/prop-types */
 
-import {
-  HiOutlineChatBubbleBottomCenterText,
-  HiOutlineCheckCircle,
-  HiOutlineCurrencyDollar,
-  HiOutlineHomeModern,
-} from "react-icons/hi2";
+import {HiOutlineChatBubbleBottomCenterText, HiOutlineCheckCircle, HiOutlineCurrencyDollar, HiOutlineHomeModern} from "react-icons/hi2";
 import { format, isToday } from "date-fns";
 import { formatCurrency, formatDistanceFromNow } from "../../utils/helpers";
 
@@ -78,9 +73,9 @@ const Price = styled.div`
   margin-top: 2.4rem;
 
   background-color: ${(props) =>
-    props.hasPaid ? "var(--color-green-100)" : "var(--color-yellow-100)"};
+    props.haspaid === "true" ? "var(--color-green-100)" : "var(--color-yellow-100)"};
   color: ${(props) =>
-    props.hasPaid ? "var(--color-green-700)" : "var(--color-yellow-700)"};
+    props.haspaid === "true" ? "var(--color-green-700)" : "var(--color-yellow-700)"};
 
   & p:last-child {
     text-transform: uppercase;
@@ -164,7 +159,7 @@ const BookingPresentation = ({ booking }) => {
           {hasBreakfast ? "Yes" : "No"}
         </DataItem>
 
-        <Price hasPaid={hasPaid}>
+        <Price haspaid={hasPaid.toString()}>
           <DataItem icon={<HiOutlineCurrencyDollar />} label={`Total price`}>
             {formatCurrency(totalPrice)}
 
