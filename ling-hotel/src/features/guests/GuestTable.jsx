@@ -11,8 +11,7 @@ const GuestTable = () => {
 
   if (isLoading) return <Spinner />;
   if (guests.length === 0) return <Empty resourceName="guests"/>
-
-
+  
   return (
     <Menus>
       <Table columns="2fr 1.8fr 2.2fr 0.3fr 3.2rem">

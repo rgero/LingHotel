@@ -1,3 +1,4 @@
+import AddGuest from "../features/guests/AddGuest"
 import GuestTable from "../features/guests/GuestTable"
 import Heading from "../ui/Heading"
 import Row from "../styles/Row"
@@ -10,8 +11,11 @@ const Guests = () => {
         {/* <GuestTableOperations /> */}
         <span>GuestTableOperations</span>
       </Row>
-
-      <GuestTable />
+      <Row>
+        <GuestTable />
+        <AddGuest/>
+      </Row>
+      
     </>
   )
 }

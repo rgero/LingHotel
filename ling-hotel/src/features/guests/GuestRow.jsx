@@ -15,7 +15,7 @@ const GuestRow = ({guest}) => {
       <span>{fullName}</span>
       <span>{email}</span>
       <span>{nationality}</span>
-      <span><Flag src={countryFlag} alt={`Flag of ${nationality}`} /></span>
+      {countryFlag ? <span><Flag src={countryFlag} alt={`Flag of ${nationality}`} /></span> : <span></span>}
       <div>
         <Modal>
           <Menus.Menu>

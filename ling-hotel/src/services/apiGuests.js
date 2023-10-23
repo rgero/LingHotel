@@ -1,4 +1,5 @@
 import { ENTRIES_PER_PAGE } from "../utils/constants";
+import { getCountryFlagFromName } from "../utils/countyCodeGetter";
 import supabase from "./supabase";
 
 export const getGuests = async ({filter, sortBy, page}) => {
@@ -44,4 +45,12 @@ export const deleteGuest = async (id) =>
         console.error(error);
         throw new Error("Guest cannot be deleted");
     }
+}
+
+export const addGuest = async (newGuest) => {
+  console.log(newGuest);
+  const countryFlag = getCountryFlagFromName(newGuest.nationality)
+  const { error } = await supabase.from('guests').insert([{...newGuest,countryFlag: countryFlag}])
+
+  console.log(error);
 }
