@@ -48,9 +48,36 @@ export const deleteGuest = async (id) =>
 }
 
 export const addGuest = async (newGuest) => {
-  console.log(newGuest);
   const countryFlag = getCountryFlagFromName(newGuest.nationality)
   const { error } = await supabase.from('guests').insert([{...newGuest,countryFlag: countryFlag}])
 
-  console.log(error);
+  if (error) {
+    console.error(error);
+    throw new Error("Guests not added");
+  }
+}
+
+export const getGuestsNameAndId = async () => {
+  let { data, error } = await supabase
+    .from('guests')
+    .select('fullName,id')
+    
+  if (error) {
+    console.error(error);
+    throw new Error("Guests Not Found");
+  }
+  return {data}
+}
+
+export const lookupGuest = async (testString) => {
+  let { data, error } = await supabase
+  .from('guests')
+  .select('fullName,id')
+  .like('fullName', `%${testString}%`)
+
+  if (error) {
+    console.error(error);
+    throw new Error("Guests Not Found");
+  }
+  return {data}
 }
