@@ -1,5 +1,4 @@
-//import AddBooking from "../features/bookings/AddBooking";
-
+import AddBooking from "../features/bookings/AddBooking";
 import BookingTable from "../features/bookings/BookingTable";
 import BookingTableOperations from "../features/bookings/BookingTableOperations";
 import Heading from "../ui/Heading";
@@ -14,7 +13,7 @@ const Bookings = () => {
       </Row>
       <Row>
         <BookingTable/>
-        {/* <AddBooking/> */}
+        <AddBooking/>
       </Row>
 
     </>
