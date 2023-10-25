@@ -48,6 +48,7 @@ const CreateCabinForm = ({cabinToEdit = {}, onCloseModal}) => {
     
     return (
         <Form onSubmit={handleSubmit(onFormSubmit, onError)} type={onCloseModal ? 'modal' : 'regular'}>
+            <h1>{isEditSession ? "Edit a Cabin" : "Create a Cabin"}</h1>
             <FormRow label="Cabin Name" errors={errors?.name?.message}>
                 <Input 
                     type="text"
