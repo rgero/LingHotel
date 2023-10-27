@@ -70,6 +70,9 @@ export const getGuestsNameAndId = async () => {
 }
 
 export const lookupGuest = async (testString) => {
+  if (testString === "") {
+    return {};
+  }
   let { data, error } = await supabase
   .from('guests')
   .select('fullName,id')
@@ -79,5 +82,5 @@ export const lookupGuest = async (testString) => {
     console.error(error);
     throw new Error("Guests Not Found");
   }
-  return {data}
+  return data
 }
