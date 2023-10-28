@@ -7,15 +7,15 @@ import Button from "../../styles/Button";
 import Form from "../../ui/forms/Form";
 import FormRow from "../../ui/forms/FormRow";
 import Input from "../../styles/Input";
-import SuggestedUsers from "../../ui/SuggestedUsers";
+import { useCabins } from "../cabins/hooks/useCabins";
 import { useForm } from "react-hook-form"
 import { useLookupGuest } from "../guests/hooks/useLookupGuest";
 
 const CreateBookingForm = ({onCloseModal}) => 
 {
   const [targetUser, setTargetUser] = useState("");
-  const isWorking = false;
   const {isLookingUp, guests = [], lookupGuest} = useLookupGuest();
+  const { isLoadingCabins, cabins = [] } = useCabins();
 
   const { register, handleSubmit, reset, getValues, formState } = useForm({
     defaultValues: {},
@@ -30,7 +30,11 @@ const CreateBookingForm = ({onCloseModal}) =>
   }, [targetUser, lookupGuest])
 
   const onSubmit = (data) => {
-    console.log("ahh");
+    // Convert the strings for Guest and Cabin to their respective entries
+    data.guest = guests.find( (element) => element.fullName == data.fullName);
+    data.cabin = cabins.find( (element) => element.name == data.cabin)
+
+    // Fire the Create API
   }
 
   const onError = (errors) => {
@@ -65,7 +69,6 @@ const CreateBookingForm = ({onCloseModal}) =>
           <Input
             type="date"
             id="startDate"
-            disabled={isWorking}
             {...register("startDate", {
               required: "This field is required",
               validate: (currentValue) => {
@@ -79,7 +82,6 @@ const CreateBookingForm = ({onCloseModal}) =>
           <Input
             type="date"
             id="endDate"
-            disabled={isWorking}
             {...register("endDate", {
               required: "This field is required",
               validate: (currentValue) => {
@@ -93,7 +95,6 @@ const CreateBookingForm = ({onCloseModal}) =>
           <Input
             type="number"
             id="numGuests"
-            disabled={isWorking}
             {...register("numGuests", {
               required: "This field is required",
               min: {
@@ -104,8 +105,24 @@ const CreateBookingForm = ({onCloseModal}) =>
           />
         </FormRow>
 
+        <FormRow label="Selected Cabin" error={errors?.endDate?.message}>
+          <>
+            <Input
+              type="text"
+              list="cabinList"
+              id="cabin"
+              {...register("cabin", {
+                required: "This field is required",
+              })}
+            />
+            {!isLoadingCabins && cabins.length > 0 && (<datalist id="cabinList">
+              {cabins.map(cabin => <option key={cabin.id} value={cabin.name}>{cabin.name}</option>)}
+            </datalist>)}
+          </>
+        </FormRow>
+
+
         <FormRow>
-          {/* type is an HTML attribute! */}
           <Button
             variation="secondary"
             type="reset"
@@ -113,7 +130,7 @@ const CreateBookingForm = ({onCloseModal}) =>
           >
             Cancel
           </Button>
-          <Button disabled={isWorking}>
+          <Button>
             Create
           </Button>
         </FormRow>
