@@ -36,6 +36,7 @@ const CreateBookingForm = ({onCloseModal}) =>
   const onError = (errors) => {
     console.log(errors)
   }
+
   return (
     <>
       <Form
@@ -46,6 +47,7 @@ const CreateBookingForm = ({onCloseModal}) =>
           <>
             <Input
               type="text"
+              list="suggestedGuests"
               id="fullName"
               value={targetUser}
               {...register("fullName", {
@@ -53,39 +55,51 @@ const CreateBookingForm = ({onCloseModal}) =>
               })}
               onChange={(e)=> setTargetUser(e.target.value)}
             />
-            {!isLookingUp && guests.length > 0 && <SuggestedUsers users={guests}/>}
+            {!isLookingUp && guests.length > 0 && (<datalist id="suggestedGuests">
+              {guests.map(guest => <option key={guest.id} value={guest.fullName}>{guest.fullName}</option>)}
+            </datalist>)}
           </>
         </FormRow>
 
         <FormRow label="Check In" error={errors?.startDate?.message}>
           <Input
-            type="text"
+            type="date"
             id="startDate"
             disabled={isWorking}
             {...register("startDate", {
               required: "This field is required",
+              validate: (currentValue) => {
+                return new Date(currentValue) > new Date() || "Start Date has to be in the future"
+              }
             })}
           />
         </FormRow>
 
         <FormRow label="Check Out" error={errors?.endDate?.message}>
           <Input
-            type="text"
+            type="date"
             id="endDate"
             disabled={isWorking}
             {...register("endDate", {
               required: "This field is required",
+              validate: (currentValue) => {
+                return new Date(currentValue) > new Date(getValues().startDate) || "End Date has to be after start date"
+              }
             })}
           />
         </FormRow>
 
         <FormRow label="Number of Guests" error={errors?.endDate?.message}>
           <Input
-            type="text"
-            id="endDate"
+            type="number"
+            id="numGuests"
             disabled={isWorking}
-            {...register("endDate", {
+            {...register("numGuests", {
               required: "This field is required",
+              min: {
+                value: 1,
+                message: "Minimum number of guests is 1"
+              }
             })}
           />
         </FormRow>

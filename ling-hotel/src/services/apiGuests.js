@@ -70,7 +70,7 @@ export const getGuestsNameAndId = async () => {
 }
 
 export const lookupGuest = async (testString) => {
-  if (testString === "") {
+  if (testString === "" || testString.length < 3) {
     return {};
   }
   let { data, error } = await supabase
