@@ -75,3 +75,16 @@ export const deleteBooking = async (id) =>
         throw new Error("Booking cannot be deleted");
     }
 }
+
+export const addBooking = async (newBooking) => {
+  const { error } = await supabase
+    .from('bookings')
+    .insert([newBooking])
+    .select()
+
+  if (error)
+  {
+      console.error(error);
+      throw new Error("Booking cannot be added");
+  }
+}

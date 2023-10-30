@@ -7,6 +7,7 @@ import Button from "../../styles/Button";
 import Form from "../../ui/forms/Form";
 import FormRow from "../../ui/forms/FormRow";
 import Input from "../../styles/Input";
+import TextArea from "../../ui/forms/TextArea";
 import { useCabins } from "../cabins/hooks/useCabins";
 import { useForm } from "react-hook-form"
 import { useLookupGuest } from "../guests/hooks/useLookupGuest";
@@ -121,6 +122,12 @@ const CreateBookingForm = ({onCloseModal}) =>
           </>
         </FormRow>
 
+        <FormRow label="Notes" error={errors?.observations?.message}>
+          <TextArea
+            id="observations"
+            {...register("observations")}
+          />
+        </FormRow>
 
         <FormRow>
           <Button
