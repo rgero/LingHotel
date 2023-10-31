@@ -9,6 +9,7 @@ import FormRow from "../../ui/forms/FormRow";
 import Input from "../../styles/Input";
 import TextArea from "../../ui/forms/TextArea";
 import { subtractDates } from "../../utils/helpers";
+import toast from "react-hot-toast";
 import { useCabins } from "../cabins/hooks/useCabins";
 import { useCreateBooking } from "./hooks/useCreateBooking";
 import { useForm } from "react-hook-form"
@@ -26,7 +27,7 @@ const CreateBookingForm = ({onCloseModal}) =>
   const { register, handleSubmit, reset, getValues, formState } = useForm({
     defaultValues: {},
   });
-  const {errors} = formState;
+  const errors = formState.errors;
 
   useEffect( () => {
     const tryLookupGuest = async () => {
@@ -40,14 +41,15 @@ const CreateBookingForm = ({onCloseModal}) =>
     let guest = guests.find( (element) => element.fullName == data.fullName);
     if (!guest) 
     {
-      throw new Error("Guest is not found");
+      toast.error("Guest is not found");
+      return
     } 
 
-    
     let cabin = cabins.find( (element) => element.name == data.cabin);
     if (!cabin) 
     {
-      throw new Error("Cabin is not found");
+      toast.error("Cabin is not found");
+      return
     }
 
     const numNights = subtractDates(data.endDate, data.startDate);
@@ -72,10 +74,15 @@ const CreateBookingForm = ({onCloseModal}) =>
     }
 
     // Fire the Create API
-    createBooking(newBooking,{onSuccess: () => {
+    createBooking(newBooking,{
+      onSuccess: () => {
         reset();
         onCloseModal?.();
-    }});
+      },
+      onError: (err) => {
+        console.log("ERROR: ", err);
+      }
+    });
   }
 
   const onError = (errors) => {
@@ -88,7 +95,7 @@ const CreateBookingForm = ({onCloseModal}) =>
         onSubmit={handleSubmit(onSubmit, onError)}
         type="modal"
       >
-        <FormRow label="Guest Name" error={errors?.name?.message}>
+        <FormRow label="Guest Name" errors={errors?.fullName?.message}>
           <>
             <Input
               type="text"
@@ -106,7 +113,7 @@ const CreateBookingForm = ({onCloseModal}) =>
           </>
         </FormRow>
 
-        <FormRow label="Check In" error={errors?.startDate?.message}>
+        <FormRow label="Check In" errors={errors?.startDate?.message}>
           <Input
             type="date"
             id="startDate"
@@ -119,7 +126,7 @@ const CreateBookingForm = ({onCloseModal}) =>
           />
         </FormRow>
 
-        <FormRow label="Check Out" error={errors?.endDate?.message}>
+        <FormRow label="Check Out" errors={errors?.endDate?.message}>
           <Input
             type="date"
             id="endDate"
@@ -132,7 +139,7 @@ const CreateBookingForm = ({onCloseModal}) =>
           />
         </FormRow>
 
-        <FormRow label="Number of Guests" error={errors?.endDate?.message}>
+        <FormRow label="Number of Guests" errors={errors?.endDate?.message}>
           <Input
             type="number"
             id="numGuests"
@@ -146,7 +153,7 @@ const CreateBookingForm = ({onCloseModal}) =>
           />
         </FormRow>
 
-        <FormRow label="Selected Cabin" error={errors?.endDate?.message}>
+        <FormRow label="Selected Cabin" errors={errors?.endDate?.message}>
           <>
             <Input
               type="text"
@@ -162,7 +169,7 @@ const CreateBookingForm = ({onCloseModal}) =>
           </>
         </FormRow>
 
-        <FormRow label="Notes" error={errors?.observations?.message}>
+        <FormRow label="Notes" errors={errors?.observations?.message}>
           <TextArea
             id="observations"
             {...register("observations")}

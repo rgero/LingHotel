@@ -31,7 +31,7 @@ const CreateGuestForm = ({onCloseModal}) => {
   return (
     <Form onSubmit={handleSubmit(onSubmit, onError)} type={onCloseModal ? 'modal' : 'regular'}>
       <h1>Create a new guest</h1>
-      <FormRow label="Name" error={errors?.fullName?.message}>
+      <FormRow label="Name" errors={errors?.fullName?.message}>
         <Input
           type="text"
           id="fullName"
@@ -42,7 +42,7 @@ const CreateGuestForm = ({onCloseModal}) => {
         />
       </FormRow>
 
-      <FormRow label="E-mail" error={errors?.email?.message}>
+      <FormRow label="E-mail" errors={errors?.email?.message}>
         <Input
           type="email"
           id="email"
@@ -53,7 +53,7 @@ const CreateGuestForm = ({onCloseModal}) => {
         />
       </FormRow>
 
-      <FormRow label="Nationality" error={errors?.nationality?.message}>
+      <FormRow label="Nationality" errors={errors?.nationality?.message}>
         <Input
           type="text"
           id="nationality"
@@ -64,7 +64,7 @@ const CreateGuestForm = ({onCloseModal}) => {
         />
       </FormRow>
 
-      <FormRow label="National ID" error={errors?.nationalID?.message}>
+      <FormRow label="National ID" errors={errors?.nationalID?.message}>
         <Input
           type="text"
           id="nationalID"
