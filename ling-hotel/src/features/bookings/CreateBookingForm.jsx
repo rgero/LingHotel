@@ -13,13 +13,15 @@ import { useCabins } from "../cabins/hooks/useCabins";
 import { useCreateBooking } from "./hooks/useCreateBooking";
 import { useForm } from "react-hook-form"
 import { useLookupGuest } from "../guests/hooks/useLookupGuest";
+import { useSettings } from "../settings/hooks/useSettings";
 
 const CreateBookingForm = ({onCloseModal}) => 
 {
   const [targetUser, setTargetUser] = useState("");
   const {isLookingUp, guests = [], lookupGuest} = useLookupGuest();
   const { isLoadingCabins, cabins = [] } = useCabins();
-  const {isAdding, createBooking} = useCreateBooking();
+  const { createBooking} = useCreateBooking();
+  const {settings, isLoading: isLoadingSettings} = useSettings();
 
   const { register, handleSubmit, reset, getValues, formState } = useForm({
     defaultValues: {},
@@ -47,6 +49,10 @@ const CreateBookingForm = ({onCloseModal}) =>
     {
       throw new Error("Cabin is not found");
     }
+
+    const numNights = subtractDates(data.endDate, data.startDate);
+    const cabinPrice = numNights * (cabin.regularPrice - cabin.discount);
+    const optionalBreakfastPrice = data.hasBreakfast ? (settings.breakfastPrice * numNights * data.numGuests) : 0.0;
     
     let newBooking = {
       created_at: new Date(),
@@ -59,10 +65,10 @@ const CreateBookingForm = ({onCloseModal}) =>
       hasPaid: false,
       numGuests: data.numGuests,
       status: "unconfirmed",
-      numNights: subtractDates(data.endDate, data.startDate),
-      cabinPrice: 0.0,
-      extrasPrice: 0.0,
-      totalPrice: 0.0
+      numNights: numNights,
+      cabinPrice: cabinPrice,
+      extrasPrice: optionalBreakfastPrice,
+      totalPrice: cabinPrice + optionalBreakfastPrice
     }
 
     // Fire the Create API
