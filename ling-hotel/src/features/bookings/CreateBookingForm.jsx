@@ -8,7 +8,9 @@ import Form from "../../ui/forms/Form";
 import FormRow from "../../ui/forms/FormRow";
 import Input from "../../styles/Input";
 import TextArea from "../../ui/forms/TextArea";
+import { subtractDates } from "../../utils/helpers";
 import { useCabins } from "../cabins/hooks/useCabins";
+import { useCreateBooking } from "./hooks/useCreateBooking";
 import { useForm } from "react-hook-form"
 import { useLookupGuest } from "../guests/hooks/useLookupGuest";
 
@@ -17,6 +19,7 @@ const CreateBookingForm = ({onCloseModal}) =>
   const [targetUser, setTargetUser] = useState("");
   const {isLookingUp, guests = [], lookupGuest} = useLookupGuest();
   const { isLoadingCabins, cabins = [] } = useCabins();
+  const {isAdding, createBooking} = useCreateBooking();
 
   const { register, handleSubmit, reset, getValues, formState } = useForm({
     defaultValues: {},
@@ -32,10 +35,41 @@ const CreateBookingForm = ({onCloseModal}) =>
 
   const onSubmit = (data) => {
     // Convert the strings for Guest and Cabin to their respective entries
-    data.guest = guests.find( (element) => element.fullName == data.fullName);
-    data.cabin = cabins.find( (element) => element.name == data.cabin)
+    let guest = guests.find( (element) => element.fullName == data.fullName);
+    if (!guest) 
+    {
+      throw new Error("Guest is not found");
+    } 
+
+    
+    let cabin = cabins.find( (element) => element.name == data.cabin);
+    if (!cabin) 
+    {
+      throw new Error("Cabin is not found");
+    }
+    
+    let newBooking = {
+      created_at: new Date(),
+      startDate: data.startDate,
+      endDate: data.endDate,
+      cabinId: cabin.id,
+      guestId: guest.id,
+      hasBreakfast: false,
+      observations: data.observations,
+      hasPaid: false,
+      numGuests: data.numGuests,
+      status: "unconfirmed",
+      numNights: subtractDates(data.endDate, data.startDate),
+      cabinPrice: 0.0,
+      extrasPrice: 0.0,
+      totalPrice: 0.0
+    }
 
     // Fire the Create API
+    createBooking(newBooking,{onSuccess: () => {
+        reset();
+        onCloseModal?.();
+    }});
   }
 
   const onError = (errors) => {
