@@ -34,10 +34,15 @@ const CreateBookingForm = ({onCloseModal}) =>
   const errors = formState.errors;
 
   useEffect( () => {
+    const controller = new AbortController();
     const tryLookupGuest = async () => {
       await lookupGuest(targetUser);
     }
     tryLookupGuest();
+    
+    return () => {
+      controller.abort();
+    };
   }, [targetUser, lookupGuest])
 
   const onSubmit = (data) => {
