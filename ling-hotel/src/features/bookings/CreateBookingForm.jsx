@@ -58,7 +58,7 @@ const CreateBookingForm = ({onCloseModal}) =>
 
     const numNights = subtractDates(data.endDate, data.startDate);
     const cabinPrice = numNights * (cabin.regularPrice - cabin.discount);
-    const optionalBreakfastPrice = data.hasBreakfast ? (settings.breakfastPrice * numNights * data.numGuests) : 0.0;
+    const optionalBreakfastPrice = addBreakfast ? (settings.breakfastPrice * numNights * data.numGuests) : 0.0;
     
     let newBooking = {
       created_at: new Date(),
