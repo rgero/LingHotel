@@ -4,6 +4,7 @@
 import { useEffect, useState } from "react";
 
 import Button from "../../styles/Button";
+import Checkbox from "../../ui/forms/Checkbox";
 import Form from "../../ui/forms/Form";
 import FormRow from "../../ui/forms/FormRow";
 import Input from "../../styles/Input";
@@ -19,6 +20,9 @@ import { useSettings } from "../settings/hooks/useSettings";
 const CreateBookingForm = ({onCloseModal}) => 
 {
   const [targetUser, setTargetUser] = useState("");
+  const [addBreakfast, setAddBreakfast] = useState(false);
+  const [hasPaid, setPaid] = useState(false);
+
   const {isLookingUp, guests = [], lookupGuest} = useLookupGuest();
   const { isLoadingCabins, cabins = [] } = useCabins();
   const { createBooking} = useCreateBooking();
@@ -62,9 +66,9 @@ const CreateBookingForm = ({onCloseModal}) =>
       endDate: data.endDate,
       cabinId: cabin.id,
       guestId: guest.id,
-      hasBreakfast: false,
+      hasBreakfast: addBreakfast,
       observations: data.observations,
-      hasPaid: false,
+      hasPaid: hasPaid,
       numGuests: data.numGuests,
       status: "unconfirmed",
       numNights: numNights,
@@ -174,6 +178,27 @@ const CreateBookingForm = ({onCloseModal}) =>
             id="observations"
             {...register("observations")}
           />
+        </FormRow>
+
+        <FormRow label="Optionals">
+          <>
+            <Checkbox 
+              checked={addBreakfast} 
+              onChange={()=> {
+                setAddBreakfast(!addBreakfast)
+              }} id="add-breakfast"
+            >
+              Add breakfast
+            </Checkbox>
+            <Checkbox 
+              checked={hasPaid} 
+              onChange={()=> {
+                setPaid(!hasPaid)
+              }} id="has-Paid"
+            >
+              Has Paid
+            </Checkbox>
+          </>
         </FormRow>
 
         <FormRow>
