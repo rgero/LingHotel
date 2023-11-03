@@ -26,7 +26,7 @@ const CreateBookingForm = ({onCloseModal}) =>
   const {isLookingUp, guests = [], lookupGuest} = useLookupGuest();
   const { isLoadingCabins, cabins = [] } = useCabins();
   const { createBooking} = useCreateBooking();
-  const {settings, isLoading: isLoadingSettings} = useSettings();
+  const {settings} = useSettings();
 
   const { register, handleSubmit, reset, getValues, formState } = useForm({
     defaultValues: {},
