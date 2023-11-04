@@ -1,5 +1,6 @@
 import AddGuest from "../features/guests/AddGuest"
 import GuestTable from "../features/guests/GuestTable"
+import GuestTableOperations from "../features/guests/GuestTableOperations"
 import Heading from "../ui/Heading"
 import Row from "../styles/Row"
 
@@ -8,8 +9,7 @@ const Guests = () => {
     <>
       <Row type="horizontal">
         <Heading as="h1">All guests</Heading>
-        {/* <GuestTableOperations /> */}
-        <span>GuestTableOperations</span>
+        <GuestTableOperations />
       </Row>
       <Row>
         <GuestTable />
