@@ -12,6 +12,7 @@ import GlobalStyles from "./styles/GlobalStyles"
 import Guests from "./pages/Guests";
 import Login from "./pages/Login"
 import PageNotFound from "./pages/PageNotFound"
+import ProtectedRoute from "./ui/ProtectedRoute";
 import {ReactQueryDevtools} from '@tanstack/react-query-devtools';
 import Settings from "./pages/Settings"
 import Stick from './pages/Stick'
@@ -33,7 +34,11 @@ const App = () => {
       <GlobalStyles/>
       <BrowserRouter>
         <Routes>
-          <Route element={<AppLayout/>}>
+          <Route element={
+            <ProtectedRoute>
+              <AppLayout/>
+            </ProtectedRoute>
+          }>
             <Route index element={<Navigate replace to='dashboard'/>} />
             <Route path='dashboard' element={<Dashboard/>} />
             <Route path='bookings' element={<Bookings/>} />

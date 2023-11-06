@@ -15,7 +15,13 @@ const LoginForm = () => {
   {
     e.preventDefault();
     if (!email || !password) return;
-    login({email, password})
+    login({email, password}, {
+      onSettled: () => {
+        // Clear the details when failed log in.
+        setEmail("");
+        setPassword("");
+      }
+    })
   }
 
   return (

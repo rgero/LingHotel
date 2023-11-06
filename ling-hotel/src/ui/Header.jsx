@@ -1,3 +1,4 @@
+import Logout from "../features/authentication/Logout";
 import styled from "styled-components"
 
 const StyledHeader = styled.header`
@@ -10,7 +11,7 @@ const StyledHeader = styled.header`
 const Header = () => {
     return (
         <StyledHeader>
-            The Ling Hotel
+            <Logout/>
         </StyledHeader>
     )
 }
