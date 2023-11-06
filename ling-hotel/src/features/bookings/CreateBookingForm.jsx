@@ -46,47 +46,13 @@ const CreateBookingForm = ({onCloseModal}) =>
   }, [targetUser, lookupGuest])
 
   const onSubmit = (data) => {
-    // Convert the strings for Guest and Cabin to their respective entries
-    let guest = guests.find( (element) => element.fullName == data.fullName);
-    if (!guest) 
-    {
-      toast.error("Guest is not found");
-      return
-    } 
-
-    let cabin = cabins.find( (element) => element.name == data.cabin);
-    if (!cabin) 
-    {
-      toast.error("Cabin is not found");
-      return
-    }
-
-    const numNights = subtractDates(data.endDate, data.startDate);
-    const cabinPrice = numNights * (cabin.regularPrice - cabin.discount);
-    const optionalBreakfastPrice = addBreakfast ? (settings.breakfastPrice * numNights * data.numGuests) : 0.0;
-    
-    let newBooking = {
-      created_at: new Date(),
-      startDate: data.startDate,
-      endDate: data.endDate,
-      cabinId: cabin.id,
-      guestId: guest.id,
-      hasBreakfast: addBreakfast,
-      observations: data.observations,
-      hasPaid: hasPaid,
-      numGuests: data.numGuests,
-      status: "unconfirmed",
-      numNights: numNights,
-      cabinPrice: cabinPrice,
-      extrasPrice: optionalBreakfastPrice,
-      totalPrice: cabinPrice + optionalBreakfastPrice
-    }
+    let newBooking = {...data, addBreakfast: addBreakfast, hasPaid: hasPaid }
 
     // Fire the Create API
     createBooking(newBooking,{
       onSuccess: () => {
-        reset();
-        onCloseModal?.();
+        // reset();
+        // onCloseModal?.();
       },
       onError: (err) => {
         console.log("ERROR: ", err);

@@ -1,4 +1,5 @@
 import { ENTRIES_PER_PAGE } from "../utils/constants";
+import { subtractDates } from "../utils/helpers";
 import supabase from "./supabase";
 
 export const getBookings = async ({filter, sortBy, page}) => {
@@ -77,14 +78,53 @@ export const deleteBooking = async (id) =>
 }
 
 export const addBooking = async (newBooking) => {
-  const { error } = await supabase
-    .from('bookings')
-    .insert([newBooking])
-    .select()
-
+  let { data: guest, error } = await supabase.from('guests').select("id").eq('fullName', newBooking.fullName).single();
   if (error)
   {
-      console.error(error);
+    throw new Error("Guest Cannot be found");
+  }
+
+  let { data: cabin, error: cabinError } = await supabase.from('cabins').select("*").eq('name', newBooking.cabin).single();
+  if (cabinError)
+  {
+    throw new Error("Cabin cannot be found");
+  }
+
+  let { data: settings, error: settingsError } = await supabase.from('settings').select('breakfastPrice').single();
+  if (settingsError)
+  {
+    throw new Error("Settings cannot be loaded");
+  }
+
+  const numNights = subtractDates(newBooking.endDate, newBooking.startDate);
+  const cabinPrice = numNights * (cabin.regularPrice - cabin.discount);
+  const optionalBreakfastPrice = newBooking.addBreakfast ? (settings.breakfastPrice * numNights * newBooking.numGuests) : 0.0;
+
+  let targetBooking = {
+    created_at: new Date(),
+    startDate: newBooking.startDate,
+    endDate: newBooking.endDate,
+    cabinId: cabin.id,
+    guestId: guest.id,
+    hasBreakfast: newBooking.addBreakfast,
+    observations: newBooking.observations,
+    hasPaid: newBooking.hasPaid,
+    numGuests: newBooking.numGuests,
+    status: "unconfirmed",
+    numNights: numNights,
+    cabinPrice: cabinPrice,
+    extrasPrice: optionalBreakfastPrice,
+    totalPrice: cabinPrice + optionalBreakfastPrice
+  }
+
+  const { error: supaError } = await supabase
+    .from('bookings')
+    .insert([targetBooking])
+    .select()
+
+  if (supaError)
+  {
+      console.error(supaError);
       throw new Error("Booking cannot be added");
   }
 }
