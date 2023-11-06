@@ -9,13 +9,10 @@ import Form from "../../ui/forms/Form";
 import FormRow from "../../ui/forms/FormRow";
 import Input from "../../styles/Input";
 import TextArea from "../../ui/forms/TextArea";
-import { subtractDates } from "../../utils/helpers";
-import toast from "react-hot-toast";
 import { useCabins } from "../cabins/hooks/useCabins";
 import { useCreateBooking } from "./hooks/useCreateBooking";
 import { useForm } from "react-hook-form"
 import { useLookupGuest } from "../guests/hooks/useLookupGuest";
-import { useSettings } from "../settings/hooks/useSettings";
 
 const CreateBookingForm = ({onCloseModal}) => 
 {
@@ -26,7 +23,6 @@ const CreateBookingForm = ({onCloseModal}) =>
   const {isLookingUp, guests = [], lookupGuest} = useLookupGuest();
   const { isLoadingCabins, cabins = [] } = useCabins();
   const { createBooking} = useCreateBooking();
-  const {settings} = useSettings();
 
   const { register, handleSubmit, reset, getValues, formState } = useForm({
     defaultValues: {},
@@ -51,8 +47,8 @@ const CreateBookingForm = ({onCloseModal}) =>
     // Fire the Create API
     createBooking(newBooking,{
       onSuccess: () => {
-        // reset();
-        // onCloseModal?.();
+        reset();
+        onCloseModal?.();
       },
       onError: (err) => {
         console.log("ERROR: ", err);
