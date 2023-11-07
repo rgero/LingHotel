@@ -10,7 +10,7 @@ export const useGuests = () => {
   const [searchParams] = useSearchParams();
 
   // SORT
-  const sortByRaw = searchParams.get('sortBy') || 'name-desc';
+  const sortByRaw = searchParams.get('sortBy') || 'fullName-desc';
   const [field, direction] = sortByRaw.split('-');
   const sortBy = {field, direction}
 
