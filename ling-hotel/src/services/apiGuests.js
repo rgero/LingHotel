@@ -15,7 +15,6 @@ export const getGuests = async ({filter, sortBy, page}) => {
 
   if (sortBy)
   {
-    console.log(sortBy);
     query = query.order(sortBy.field, {ascending: sortBy.direction === "asc"})
   }
 
