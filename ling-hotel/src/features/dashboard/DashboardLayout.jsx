@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 
+import DurationChart from './DurationChart';
 import SalesChart from './SalesChart';
 import Spinner from '../../ui/Spinner';
 import Stats from './Stats';
@@ -26,8 +27,7 @@ const DashboardLayout = () => {
   return (
     <StyledDashboardLayout>
       <Stats bookings={bookings} confirmedStays={confirmedStays} cabinCount={cabins.length} numDays={numDays}/>
-      <div>Today Activity</div>
-      <div>Stay Durations</div>
+      <DurationChart confirmedStays={confirmedStays}/>
       <SalesChart bookings={bookings} numDays={numDays}/>
     </StyledDashboardLayout>
   )
