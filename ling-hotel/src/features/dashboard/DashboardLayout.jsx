@@ -1,6 +1,11 @@
+/* eslint-disable no-unused-vars */
+
 import Spinner from '../../ui/Spinner';
+import Stats from './Stats';
 import styled from "styled-components";
+import { useCabins } from "../cabins/hooks/useCabins";
 import { useRecentBookings } from "./hooks/useRecentBookings";
+import { useRecentStays } from './hooks/useRecentStays';
 
 const StyledDashboardLayout = styled.div`
   display: grid;
@@ -12,14 +17,14 @@ const StyledDashboardLayout = styled.div`
 
 const DashboardLayout = () => {
   const {bookings, isLoading} = useRecentBookings();
+  const {stays, confirmedStays, numDays, isLoading: isStaysLoading} = useRecentStays();
+  const {cabins, isLoading: isLoadingCabins} = useCabins();
 
-  if (isLoading) return <Spinner/>
-
-  console.log(bookings);
+  if (isLoading || isStaysLoading || isLoadingCabins) return <Spinner/>
 
   return (
     <StyledDashboardLayout>
-      <div>Statistics</div>
+      <Stats bookings={bookings} confirmedStays={confirmedStays} cabinCount={cabins.length} numDays={numDays}/>
       <div>Today Activity</div>
       <div>Stay Durations</div>
       <div>Sales</div>
