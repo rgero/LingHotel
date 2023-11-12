@@ -3,9 +3,9 @@ import Button from "../../styles/Button";
 import ButtonGroup from "../../styles/ButtonGroup";
 import ButtonText from "../../styles/ButtonText";
 import ConfirmDelete from "../../ui/ConfirmDelete";
+import Empty from "../../ui/Empty";
 import Heading from "../../ui/Heading";
 import Modal from "../../ui/Modal";
-import PageNotFound from "../../pages/PageNotFound";
 import Row from "../../styles/Row";
 import Spinner from "../../ui/Spinner";
 import Tag from "../../ui/Tag";
@@ -23,14 +23,14 @@ const HeadingGroup = styled.div`
 `;
 
 const BookingDetail = () => {
-  const {booking, error, isLoading} = useBooking();
+  const {booking, isLoading} = useBooking();
   const {checkOut, isCheckingOut} = useCheckout();
   const {deleteBooking, isDeleting} = useDeleteBooking();
   const moveBack = useMoveBack();
   const navigate = useNavigate();
 
   if (isLoading) return <Spinner/>;
-  if (!isLoading && error) return <PageNotFound/>
+  if (!booking) return <Empty resource="booking"/>
 
   const status = booking.status;
   const id = booking.id;
