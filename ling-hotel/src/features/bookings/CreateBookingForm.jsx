@@ -91,7 +91,7 @@ const CreateBookingForm = ({onCloseModal}) =>
             {...register("startDate", {
               required: "This field is required",
               validate: (currentValue) => {
-                return new Date(currentValue) > new Date() || "Start Date has to be in the future"
+                return new Date(currentValue + "T00:00:00") >= new Date().setHours(0,0,0,0) || "Start Date has to be in the future"
               }
             })}
           />
@@ -104,7 +104,7 @@ const CreateBookingForm = ({onCloseModal}) =>
             {...register("endDate", {
               required: "This field is required",
               validate: (currentValue) => {
-                return new Date(currentValue) > new Date(getValues().startDate) || "End Date has to be after start date"
+                return new Date(currentValue + "T00:00:00") >= new Date(getValues().startDate).setHours(0,0,0,0) || "End Date has to be after start date"
               }
             })}
           />

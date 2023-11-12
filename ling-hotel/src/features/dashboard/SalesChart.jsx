@@ -37,9 +37,7 @@ const SalesChart = ({bookings, numDays}) => {
     start: subDays(new Date(), numDays -1),
     end: new Date()
   })
-
-  console.log(bookings);
-  
+ 
   const data = allDays.map((date) => {
     return {
       label: format(date, "MMM dd"),
