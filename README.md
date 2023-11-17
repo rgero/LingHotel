@@ -10,3 +10,7 @@ There's four tables
     Guests
     Settings
     Bookings
+
+As of right now I think project is "complete" as I want to work on other projects and learn other things. However if I were to revisit this I would definitely tweak the styling so that it actually has a good mobile implementation. Currently if a user comes up and tries to view it on mobile, nothing is really responsive. The sidebar actually takes up a large portion of the display port and is persistently covering all of the data.
+
+I have a feeling that I will fix that in the upcoming weeks in between working on other projects.
